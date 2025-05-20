@@ -6,13 +6,13 @@ import { orderRoutes } from "./app/modules/order/order.routes";
 import { productRoutes } from "./app/modules/product/product.routes";
 import cors from "cors";
 import { paymentRoutes } from "./app/modules/payment/payment.routes";
+import router from "./app/routes";
 
 const app = express();
 
 app.use(bodyParser.json());
 // app.use(cookieParser());
 
-// app.use(cors({ origin: 'http://localhost:5173s', credentials: true }));
 app.use(
   cors({
     origin: ["https://trendys.vercel.app", "http://localhost:5173"],
@@ -20,9 +20,7 @@ app.use(
   })
 );
 
-app.use("/api/v1/product", productRoutes);
-app.use("/api/v1/order", orderRoutes);
-app.use("/api/v1/payment", paymentRoutes);
+app.use("/api/v1", router);
 
 app.get("/", (req: Request, res: Response) => {
   res.send({
