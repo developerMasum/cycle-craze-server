@@ -26,8 +26,9 @@ const getAllUser = async () => {
 };
 
 const getMe = async (user: TUser) => {
-  // console.log(user)
+  console.log(user);
   const result = await User.findOne({ email: user?.email, role: user?.role });
+
   // let result = null;
   // if (role === 'student') {
   //   result = await Student.findOne({ id: userId }).populate('user');

@@ -27,6 +27,7 @@ const getAllUser = catchAsync(async (req, res) => {
 });
 
 const getMe = catchAsync(async (req, res) => {
+  console.log(req);
   const user = req.user as TUser;
 
   const result = await UserServices.getMe(user);
