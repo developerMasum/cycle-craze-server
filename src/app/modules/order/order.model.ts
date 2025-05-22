@@ -66,6 +66,10 @@ const OrderSchema: Schema = new Schema(
       enum: ["Cash On Delivery", "Online Payment"],
       required: true,
     },
+    deliveryCharge: {
+      type: Number,
+      default: 120,
+    },
   },
   {
     timestamps: true,

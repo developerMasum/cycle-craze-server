@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { orderService } from "./order.service";
 
-export const createOrderController = async (req: Request, res: Response) => {
+const createOrderController = async (req: Request, res: Response) => {
   try {
     const orderData = req.body;
 
@@ -24,4 +24,25 @@ export const createOrderController = async (req: Request, res: Response) => {
       error: (error as Error).message,
     });
   }
+};
+const getOrderByIdController = async (req: Request, res: Response) => {
+  try {
+    const product = await orderService.getOrderById(req.params.id);
+    res.status(200).json({
+      success: true,
+      message: "Order data retrieved successfully!",
+      data: product,
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: "Internal server error!",
+      error: err,
+    });
+  }
+};
+
+export const OrderController = {
+  createOrderController,
+  getOrderByIdController,
 };

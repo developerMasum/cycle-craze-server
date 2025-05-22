@@ -8,6 +8,7 @@ interface OrderInput {
   email: string;
   contact: string;
   address: string;
+  deliveryCharge: number;
   paymentMethod: "Cash On Delivery" | "Online Payment";
   products: Array<{
     product: string; // ObjectId as string
@@ -17,7 +18,15 @@ interface OrderInput {
 }
 
 const createOrder = async (orderData: OrderInput) => {
-  const { name, email, contact, address, paymentMethod, products } = orderData;
+  const {
+    name,
+    email,
+    contact,
+    address,
+    paymentMethod,
+    products,
+    deliveryCharge,
+  } = orderData;
 
   // 1️⃣ Re-calc totalPrice on the server
   let totalPrice = 0;
@@ -46,6 +55,7 @@ const createOrder = async (orderData: OrderInput) => {
     },
     products: productDetails,
     totalPrice,
+    deliveryCharge,
     paymentMethod,
     status: "Pending",
     paymentStatus: "Pending",
@@ -74,6 +84,12 @@ const createOrder = async (orderData: OrderInput) => {
   return paymentSession;
 };
 
+const getOrderById = async (id: string) => {
+  const order = await Order.findById(id).populate("products.product");
+  return order;
+};
+
 export const orderService = {
   createOrder,
+  getOrderById,
 };

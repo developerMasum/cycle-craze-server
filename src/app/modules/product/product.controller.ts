@@ -38,7 +38,7 @@ const getProductByIdHandler = async (req: Request, res: Response) => {
     const product = await productsService.getProductById(req.params.id);
     res.status(200).json({
       success: true,
-      message: "Product data retrived successfully!",
+      message: "Product data retrieved successfully!",
       data: product,
     });
   } catch (err) {
