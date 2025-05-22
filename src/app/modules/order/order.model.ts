@@ -1,62 +1,75 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import mongoose, { Schema, Document } from "mongoose";
 
 interface IOrder extends Document {
-    user: {
-        name: string,
-        email: string,
-        phone: string,
-        address: string
-    };
-    products: Array<{
-        product: mongoose.Schema.Types.ObjectId;
-        quantity: number;
-    }>;
-    totalPrice: number;
-    status: string;
-    paymentStatus: string;
-    transactionId: string;
+  user: {
+    name: string;
+    email: string;
+    phone: string;
+    address: string;
+  };
+  products: Array<{
+    product: mongoose.Schema.Types.ObjectId;
+    quantity: number;
+    name?: string; // optional, since it's sent from frontend
+  }>;
+  totalPrice: number;
+  status: string;
+  paymentStatus: string;
+  transactionId?: string; // optional since it's not always available
+  paymentMethod: string;
 }
 
-const OrderSchema: Schema = new Schema({
+const OrderSchema: Schema = new Schema(
+  {
     user: {
-        name: { type: String, required: true },
-        email: { type: String, required: true },
-        phone: { type: String, required: true },
-        address: { type: String, required: true },
+      name: { type: String, required: true },
+      email: { type: String, required: true },
+      phone: { type: String, required: true },
+      address: { type: String, required: true },
     },
     products: [
-        {
-            product: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'Product',
-                required: true
-            },
-            quantity: {
-                type: Number,
-                required: true
-            },
-        }
+      {
+        product: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Product",
+          required: true,
+        },
+        quantity: {
+          type: Number,
+          required: true,
+        },
+        name: {
+          type: String, // optional but useful to save for display
+        },
+      },
     ],
     totalPrice: {
-        type: Number,
-        required: true
+      type: Number,
+      required: true,
     },
     status: {
-        type: String,
-        enum: ['Pending', 'Paid', 'Shipped', 'Completed', 'Cancelled'],
-        default: 'Pending'
+      type: String,
+      enum: ["Pending", "Paid", "Shipped", "Completed", "Cancelled"],
+      default: "Pending",
     },
     paymentStatus: {
-        type: String,
-        enum: ['Pending', 'Paid', 'Failed'],
-        default: 'Pending'
+      type: String,
+      enum: ["Pending", "Paid", "Failed"],
+      default: "Pending",
     },
     transactionId: {
-        type: String,
-        required: true
+      type: String,
+      required: false, // made optional
     },
-}, {
-    timestamps: true
-});
+    paymentMethod: {
+      type: String,
+      enum: ["Cash On Delivery", "Online Payment"],
+      required: true,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
-export default mongoose.model<IOrder>('Order', OrderSchema);
+export default mongoose.model<IOrder>("Order", OrderSchema);

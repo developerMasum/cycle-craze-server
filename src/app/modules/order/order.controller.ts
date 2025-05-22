@@ -1,21 +1,27 @@
-import { Request, Response } from 'express';
-import { orderService } from './order.service';
+import { Request, Response } from "express";
+import { orderService } from "./order.service";
 
 export const createOrderController = async (req: Request, res: Response) => {
-    try {
-        const orderData = req.body;
-        const newOrder = await orderService.createOrder(orderData);
-        res.status(201).json({
-            success: true,
-            message: "Order created successfully!",
-            data: newOrder
-        });
-    } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: (error as Error).message,
-            error
-        });
-    }
-};
+  try {
+    const orderData = req.body;
 
+    const result = await orderService.createOrder(orderData);
+
+    res.status(201).json({
+      success: true,
+      message:
+        orderData.paymentMethod === "Cash On Delivery"
+          ? "Order placed successfully with Cash on Delivery."
+          : "Payment session created successfully.",
+      data: result,
+    });
+  } catch (error) {
+    console.error("Error creating order:", error);
+
+    res.status(500).json({
+      success: false,
+      message: "Failed to create order.",
+      error: (error as Error).message,
+    });
+  }
+};

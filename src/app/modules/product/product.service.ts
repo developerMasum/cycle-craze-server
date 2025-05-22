@@ -14,7 +14,7 @@ const getAllProductsFromDB = async (query: Record<string, unknown>) => {
 
   const result = await productQuery.modelQuery;
   const meta = await productQuery.countTotal();
-  console.log(result);
+  // console.log(result);
   return {
     meta,
     result,
