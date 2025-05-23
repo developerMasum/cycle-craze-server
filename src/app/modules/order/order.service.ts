@@ -76,6 +76,7 @@ const createOrder = async (orderData: OrderInput) => {
 
   // 5️⃣ Otherwise, spin up a payment session
   const paymentSession = await initiatePayment({
+    _id: order?._id,
     totalPrice,
     transactionId,
     name,

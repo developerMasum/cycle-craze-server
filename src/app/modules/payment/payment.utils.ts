@@ -12,7 +12,7 @@ const initiatePayment = async (paymentData: any) => {
     cus_email: paymentData.email,
     cus_add1: paymentData.address,
     cus_phone: paymentData.phone,
-    success_url: `http://localhost:3000/api/v1/payment/confirmation?transactionId=${paymentData.transactionId}&status=success`,
+    success_url: `http://localhost:5173/order-details/${paymentData._id}`,
     fail_url: `http://localhost:3000/api/v1/payment/confirmation?status=failed`,
     cancel_url: "http://localhost:5173",
     currency: "BDT",
