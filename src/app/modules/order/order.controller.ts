@@ -1,6 +1,9 @@
 import { Request, Response } from "express";
 import { orderService } from "./order.service";
-
+import catchAsync from "../../utils/catchAsync";
+import { TUser } from "../User/user.interface";
+import sendResponse from "../../utils/sendResponse";
+import httpStatus from "http-status";
 const createOrderController = async (req: Request, res: Response) => {
   try {
     const orderData = req.body;
@@ -41,8 +44,22 @@ const getOrderByIdController = async (req: Request, res: Response) => {
     });
   }
 };
+const getMyOrders = catchAsync(async (req, res) => {
+  const user = req.params;
+  // console.log(user);
+
+  const result = await orderService.getMyOrders(user);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "My order is retrieved successfully",
+    data: result,
+  });
+});
 
 export const OrderController = {
   createOrderController,
   getOrderByIdController,
+  getMyOrders,
 };
