@@ -25,11 +25,12 @@ const getAllUser = catchAsync(async (req, res) => {
     data: result,
   });
 });
-
+interface RequestWithUser extends Request {
+  user: TUser;
+}
 const getMe = catchAsync(async (req, res) => {
   console.log(req);
-  const user = req.user as TUser;
-
+  const user = (req as unknown as RequestWithUser).user;
   const result = await UserServices.getMe(user);
 
   sendResponse(res, {

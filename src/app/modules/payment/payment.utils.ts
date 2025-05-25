@@ -12,7 +12,7 @@ const initiatePayment = async (paymentData: any) => {
     cus_email: paymentData.email,
     cus_add1: paymentData.address,
     cus_phone: paymentData.phone,
-    success_url: `http://localhost:5173/order-details/${paymentData._id}`,
+    success_url: `http://localhost:3000/api/v1/payment/confirmation?transactionId=${paymentData.transactionId}&status=success`,
     fail_url: `http://localhost:3000/api/v1/payment/confirmation?status=failed`,
     cancel_url: "http://localhost:5173",
     currency: "BDT",
@@ -30,7 +30,7 @@ const initiatePayment = async (paymentData: any) => {
 
 export default initiatePayment;
 
-export const verifyPayment = async (transactionId: string) => {
+export const verifyPayment = async (status: string, transactionId: string) => {
   const response = await axios.get(process.env.PAYMENT_VALIDATION_URL!, {
     params: {
       store_id: process.env.STORE_ID,

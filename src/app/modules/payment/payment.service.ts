@@ -2,13 +2,13 @@ import orderModel from "../order/order.model";
 import { verifyPayment } from "./payment.utils";
 
 const confirmationService = async (transactionId: string, status: string) => {
-  const verifyResponse = await verifyPayment(transactionId);
+  const verifyResponse = await verifyPayment(transactionId, status);
   console.log(verifyResponse);
   let result;
-  if (verifyResponse && verifyResponse.pay_status === "successful") {
+  if (verifyResponse && verifyResponse.request_id === "success") {
     result = await orderModel.findOneAndUpdate(
       { transactionId },
-      { status: "Paid" }
+      { paymentStatus: "Paid" }
     );
   }
 
