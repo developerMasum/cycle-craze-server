@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 
 app.use(
   cors({
-    origin: ["https://trendys.vercel.app", "http://localhost:5173"],
+    origin: ["https://cycle-craze.vercel.app", "http://localhost:5173"],
     credentials: true,
   })
 );
