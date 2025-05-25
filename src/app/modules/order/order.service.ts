@@ -96,7 +96,9 @@ const getOrderById = async (id: string) => {
 const getMyOrders = async (user: any) => {
   const email = user.id;
   console.log("email", email);
-  const orders = await Order.find({ "user.email": email });
+  const orders = await Order.find({ "user.email": email }).sort({
+    createdAt: -1,
+  });
   return orders;
 };
 
