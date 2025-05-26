@@ -17,6 +17,8 @@ interface IOrder extends Document {
   paymentStatus: string;
   transactionId?: string; // optional since it's not always available
   paymentMethod: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 const OrderSchema: Schema = new Schema(
