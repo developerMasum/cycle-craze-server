@@ -13,5 +13,8 @@ router.post(
   UserControllers.createUser
 );
 
+router.get("/", UserControllers.getAllUser);
+router.patch("/:id", UserControllers.deleteUser);
+
 router.get("/me", auth(USER_ROLE.admin, USER_ROLE.user), UserControllers.getMe);
 export const UserRoutes = router;

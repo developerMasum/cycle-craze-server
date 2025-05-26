@@ -21,26 +21,19 @@ const createUserIntoDB = async (payload: TUser) => {
   return result;
 };
 const getAllUser = async () => {
-  const result = await User.find();
+  const result = await User.find().sort({ createdAt: -1 });
+  return result;
+};
+const deleteUser = async (id: string) => {
+  const result = await User.findByIdAndUpdate(id, {
+    isDeleted: true,
+  });
   return result;
 };
 
 const getMe = async (user: TUser) => {
   console.log(user);
   const result = await User.findOne({ email: user?.email, role: user?.role });
-
-  // let result = null;
-  // if (role === 'student') {
-  //   result = await Student.findOne({ id: userId }).populate('user');
-  // }
-  // if (role === 'admin') {
-  //   result = await Admin.findOne({ id: userId }).populate('user');
-  // }
-
-  // if (role === 'faculty') {
-  //   result = await Faculty.findOne({ id: userId }).populate('user');
-  // }
-
   return result;
 };
 
@@ -48,4 +41,5 @@ export const UserServices = {
   createUserIntoDB,
   getAllUser,
   getMe,
+  deleteUser,
 };

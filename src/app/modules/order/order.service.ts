@@ -102,8 +102,22 @@ const getMyOrders = async (user: any) => {
   return orders;
 };
 
+const getAllOrders = async () => {
+  const orders = await Order.find().sort({ createdAt: -1 });
+  return orders;
+};
+const updateOrderStatus = async (id: string, data: any) => {
+  const result = await Order.findByIdAndUpdate(
+    id,
+    { status: data.status, paymentStatus: data.paymentStatus },
+    { new: true }
+  );
+  return result;
+};
 export const orderService = {
   createOrder,
   getOrderById,
   getMyOrders,
+  getAllOrders,
+  updateOrderStatus,
 };
