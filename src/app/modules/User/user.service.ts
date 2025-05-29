@@ -36,10 +36,17 @@ const getMe = async (user: TUser) => {
   const result = await User.findOne({ email: user?.email, role: user?.role });
   return result;
 };
+const userBlockUnblock = async (id: string, data: any) => {
+  const result = await User.findByIdAndUpdate(id, {
+    isBlock: data.isBlock,
+  });
+  return result;
+};
 
 export const UserServices = {
   createUserIntoDB,
   getAllUser,
   getMe,
   deleteUser,
+  userBlockUnblock,
 };

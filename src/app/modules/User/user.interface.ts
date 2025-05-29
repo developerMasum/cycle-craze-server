@@ -12,6 +12,7 @@ export interface TUser {
   password: string;
   role?: string;
   isDeleted?: boolean;
+  isBlock?: boolean;
 }
 
 export interface UserModel extends Model<TUser> {

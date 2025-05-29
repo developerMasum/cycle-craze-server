@@ -40,6 +40,16 @@ const getMe = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const userBlockUnblock = catchAsync(async (req, res) => {
+  const result = await UserServices.userBlockUnblock(req.params.id, req.body);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "User Toggle is updated successfully",
+    data: result,
+  });
+});
 const deleteUser = catchAsync(async (req, res) => {
   const result = await UserServices.deleteUser(req.params.id);
 
@@ -55,5 +65,6 @@ export const UserControllers = {
   createUser,
   getAllUser,
   getMe,
+  userBlockUnblock,
   deleteUser,
 };

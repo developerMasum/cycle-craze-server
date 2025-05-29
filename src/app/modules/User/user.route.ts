@@ -14,6 +14,7 @@ router.post(
 );
 
 router.get("/", UserControllers.getAllUser);
+router.patch("/:id/toggle-state", UserControllers.userBlockUnblock);
 router.patch("/:id", UserControllers.deleteUser);
 
 router.get("/me", auth(USER_ROLE.admin, USER_ROLE.user), UserControllers.getMe);
