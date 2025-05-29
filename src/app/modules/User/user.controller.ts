@@ -41,15 +41,18 @@ const getMe = catchAsync(async (req, res) => {
   });
 });
 const userBlockUnblock = catchAsync(async (req, res) => {
-  const result = await UserServices.userBlockUnblock(req.params.id, req.body);
+  const result = await UserServices.userBlockUnblock(req.params.id);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "User Toggle is updated successfully",
+    message: `User has been ${
+      result.isBlock ? "blocked" : "unblocked"
+    } successfully`,
     data: result,
   });
 });
+
 const deleteUser = catchAsync(async (req, res) => {
   const result = await UserServices.deleteUser(req.params.id);
 
