@@ -46,9 +46,7 @@ const userBlockUnblock = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: `User has been ${
-      result.isBlock ? "blocked" : "unblocked"
-    } successfully`,
+    message: "UserToggle is updated successfully",
     data: result,
   });
 });
