@@ -1,6 +1,9 @@
+import QueryBuilder from "../../utils/QueryBuilder";
 import initiatePayment from "../payment/payment.utils";
 import Product from "../product/product.model";
+import orderModel from "./order.model";
 import Order from "./order.model";
+import { orderSearchableFields } from "./order.utils";
 
 // -- you can tighten up the type here if you like
 interface OrderInput {
@@ -102,9 +105,22 @@ const getMyOrders = async (user: any) => {
   return orders;
 };
 
-const getAllOrders = async () => {
-  const orders = await Order.find().sort({ createdAt: -1 });
-  return orders;
+const getAllOrders = async (query: Record<string, unknown>) => {
+  const orderQuery = new QueryBuilder(Order.find(), query)
+    .search(orderSearchableFields)
+    .filter()
+    .sort()
+    .paginate()
+    .fields();
+
+  const data = await orderQuery.modelQuery;
+
+  const meta = await orderQuery.countTotal();
+
+  return {
+    meta,
+    data,
+  };
 };
 const updateOrderStatus = async (id: string, data: any) => {
   const result = await Order.findByIdAndUpdate(

@@ -58,7 +58,7 @@ const getMyOrders = catchAsync(async (req, res) => {
   });
 });
 const getAllOrders = catchAsync(async (req, res) => {
-  const result = await orderService.getAllOrders();
+  const result = await orderService.getAllOrders(req.query);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
