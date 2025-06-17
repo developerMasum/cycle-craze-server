@@ -130,10 +130,15 @@ const updateOrderStatus = async (id: string, data: any) => {
   );
   return result;
 };
+const deleteOrder = async (id: string) => {
+  const result = await Order.findByIdAndDelete(id);
+  return result;
+};
 export const orderService = {
   createOrder,
   getOrderById,
   getMyOrders,
   getAllOrders,
   updateOrderStatus,
+  deleteOrder,
 };
