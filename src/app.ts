@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 
 app.use(
   cors({
-    origin: ["https://cycle-Wave.vercel.app", "http://localhost:5173"],
+    origin: ["https://cycle-wave.vercel.app"],
     credentials: true,
   })
 );
