@@ -6,6 +6,7 @@ export type TProduct = {
   brand: string;
   price: number;
   category: string;
+  wheelSize: number;
   frameMaterial: string;
   quantity: number;
   images: string[];
