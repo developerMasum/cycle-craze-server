@@ -64,7 +64,8 @@ const getAllOrders = catchAsync(async (req, res) => {
     statusCode: httpStatus.OK,
     success: true,
     message: "All order is retrieved successfully",
-    data: result,
+    data: result.data,
+    meta: result.meta,
   });
 });
 

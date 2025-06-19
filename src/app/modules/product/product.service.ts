@@ -50,9 +50,12 @@ const getAllProductsFromDB = async (query: Record<string, unknown>) => {
 const getProductById = async (id: string) => {
   return await Product.findById(id);
 };
-
+const deleteProduct = async (id: string) => {
+  return await Product.findByIdAndDelete(id);
+};
 export const productsService = {
   getAllProductsFromDB,
   getProductById,
   createProduct,
+  deleteProduct,
 };
