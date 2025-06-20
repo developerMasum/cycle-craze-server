@@ -12,7 +12,7 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: "https://cycle-craze.vercel.app",
+    origin: "https://cycle-wave.vercel.app",
     credentials: true,
   })
 );
